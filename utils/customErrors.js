@@ -1,5 +1,5 @@
 class NotFoundError extends Error {
-  constructor(message = 'Resource not found') {
+  constructor(message) {
     super(message);
     this.name = 'NotFoundError';
     this.status = 404;
@@ -7,7 +7,7 @@ class NotFoundError extends Error {
 }
 
 class ValidationError extends Error {
-  constructor(message = 'Invalid input') {
+  constructor(message) {
     super(message);
     this.name = 'ValidationError';
     this.status = 400;
@@ -15,15 +15,11 @@ class ValidationError extends Error {
 }
 
 class UnauthorizedError extends Error {
-  constructor(message = 'Unauthorized access') {
+  constructor(message) {
     super(message);
     this.name = 'UnauthorizedError';
     this.status = 401;
   }
 }
 
-module.exports = {
-  NotFoundError,
-  ValidationError,
-  UnauthorizedError
-};
+module.exports = { NotFoundError, ValidationError, UnauthorizedError };
