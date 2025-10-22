@@ -1,7 +1,15 @@
+const { ValidationError } = require('../utils/customErrors');
+
 module.exports = (req, res, next) => {
   const { name, description, price, category, inStock } = req.body;
-  if (!name || !description || typeof price !== 'number' || !category || typeof inStock !== 'boolean') {
-    return res.status(400).json({ error: 'Invalid product data' });
+  if (
+    !name ||
+    !description ||
+    typeof price !== 'number' ||
+    !category ||
+    typeof inStock !== 'boolean'
+  ) {
+    return next(new ValidationError('Invalid product data'));
   }
   next();
 };
