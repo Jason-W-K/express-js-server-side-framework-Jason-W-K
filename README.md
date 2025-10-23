@@ -1,59 +1,79 @@
-# Express.js RESTful API Assignment
+# 📦 Express.js Product API
 
-This assignment focuses on building a RESTful API using Express.js, implementing proper routing, middleware, error handling, and advanced features.
-
----
-
-## ✅ Assignment Overview
-
-You will:
-1. Set up an Express.js server
-2. Create RESTful API routes for a product resource
-3. Implement custom middleware for logging, authentication, and validation
-4. Add comprehensive error handling
-5. Develop advanced features like filtering, pagination, and search
+## 🚀 Overview
+This is a RESTful API built with Express.js to manage a collection of products. It supports full CRUD operations, middleware for logging, authentication, and validation, as well as advanced features like filtering, pagination, search, and statistics.
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Getting Started
 
-1. Accept the GitHub Classroom assignment invitation  
-2. Clone your personal repository that was created by GitHub Classroom  
-3. Install dependencies:
-   bash
-   npm install
+### 1. Clone the Repository
+```bash
+git clone <your-github-classroom-repo-url>
+cd express-product-api
+2. Install Dependencies
+npm install
 
-   - Run the server:
+
+3. Create a .env File
+Use the .env.example file as a reference and set your own API key.
+
+4. Start the Server
 npm start
 
-📁 Files Included
-- Week2-Assignment.md: Detailed assignment instructions
-- server.js: Main Express.js server file
-- routes/products.js: RESTful routes for product resource
-- middleware/logger.js: Logs request method, URL, and timestamp
-- middleware/auth.js: Checks for API key in headers
-- middleware/validateProduct.js: Validates product data
-- utils/errorHandler.js: Global error handling middleware
-- utils/customErrors.js: Custom error classes
-- .env.example: Example environment variables file
-- README.md: Project documentation
 
-⚙️ Requirements
-- Node.js (v18 or higher)
-- npm or yarn
-- Postman, Insomnia, or curl for API testing
+The server will run locally at:
+http://localhost:3000
 
-📦 API Endpoints
-Product Routes
+
+
+🔐 Environment Variables
+Create a .env file in the root directory with the following:
+API_KEY=your-secret-key
+PORT=3000
+
+
+
+📚 API Endpoints
+Base URL
+http://localhost:3000/api/products
+
+
+
+Public Routes (No API Key Required)
 - GET /api/products
-Returns all products
+→ Returns all products
+→ Supports filtering by category (?category=electronics)
+→ Supports pagination (?page=1&limit=5)
 - GET /api/products/:id
-Returns a specific product by ID
+→ Returns a specific product by its ID
+- GET /api/products/search?name=tablet
+→ Searches products by name (case-insensitive partial match)
+- GET /api/products/stats
+→ Returns product statistics grouped by category
+
+
+
+Protected Routes (require x-api-key header)
 - POST /api/products
-Creates a new product
+→ Creates a new product
+→ Requires full product data in request body
+
+- PUT /api/products/:id
+→ Updates an existing product by ID
+→ Partial updates allowed (e.g., just price or inStock)
+
+- DELETE /api/products/:id
+→ Deletes a product by ID
+
+
+
+🧪 Example Requests
+Create Product
+POST /api/products
 Headers:
-x-api-key: your-secret-key
-- Body Example:
+  x-api-key: your-secret-key
+Body:
 {
   "name": "Tablet",
   "description": "10-inch screen",
@@ -61,42 +81,51 @@ x-api-key: your-secret-key
   "category": "electronics",
   "inStock": true
 }
-- PUT /api/products/:id
-Updates an existing product
+
+
+Update Product
+PUT /api/products/abc123
 Headers:
-x-api-key: your-secret-key
-- Body Example:
+  x-api-key: your-secret-key
+Body:
 {
   "price": 350,
   "inStock": false
 }
-- DELETE /api/products/:id
-Deletes a product
-Headers:
-x-api-key: your-secret-key
+
+
+Filter by Category
+GET /api/products?category=electronics
+
+
+Pagination
+GET /api/products?page=2&limit=5
+
+
+Search by Name
+GET /api/products/search?name=tablet
+
+
+Product Stats
+GET /api/products/stats
 
 
 
-🧠 Middleware Features
-- Logger: Logs method, URL, and timestamp for every request
-- Authentication: Requires x-api-key header for protected routes
-- Validation: Ensures product data is complete and correctly typed
+🧰 Middleware Features
+- Logger: Logs method, URL, and timestamp for every request.
+- Authentication: Requires x-api-key header for protected routes.
+- Validation: Ensures product data is complete and correctly typed.
 
 🚨 Error Handling
-- Global error handler for catching and formatting errors
+- Global error handler for formatting and responding to errors.
 - Custom error classes:
 - NotFoundError
 - ValidationError
 - UnauthorizedError
 
-🔍 Advanced Features
-- Filtering products by category:
-GET /api/products?category=electronics
-- Pagination support:
-GET /api/products?page=2&limit=5
-- Search by name:
-GET /api/products/search?name=coffee
-- Product statistics:
-GET /api/products/stats
+📌 Notes
+- This API uses in-memory storage (no database).
+- Use Postman, Insomnia, or curl to test endpoints.
+- Ensure your .env file is configured before starting the server.
 
 
